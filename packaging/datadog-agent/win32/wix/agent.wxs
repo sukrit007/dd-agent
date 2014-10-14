@@ -29,30 +29,30 @@
             </Directory>
         </Directory>
 
-        <Binary Id="FindReplace" SourceFile="$(var.WixRoot)\FindReplace.exe" />
+
         <CustomAction
             Id="ReplaceAPIKey"
-            BinaryKey="FindReplace"
-            ExeCommand='"[CommonAppDataFolder]\Datadog\datadog.conf" APIKEYHERE [APIKEY]'
-            Execute="deferred"
+            Execute="immediate"
+            Impersonate="yes" 
             Return="check"
-            Impersonate="no" />
+            BinaryKey="FindReplace"
+            ExeCommand='"[CommonAppDataFolder]Datadog\datadog.conf" "APIKEYHERE" "[APIKEY]"' />
 
         <CustomAction
             Id="ReplaceTags"
-            BinaryKey="FindReplace"
-            ExeCommand='"[CommonAppDataFolder]\Datadog\datadog.conf" "#tags: mytag0, mytag1" "tags: [TAGS]"'
-            Execute="deferred"
+            Execute="immediate"
+            Impersonate="yes" 
             Return="check"
-            Impersonate="no" />
+            BinaryKey="FindReplace"
+            ExeCommand='"[CommonAppDataFolder]Datadog\datadog.conf "#tags: mytag0, mytag1" "tags: [TAGS]"' />
 
         <CustomAction
             Id="ReplaceHostname"
+            Execute="immediate"
+            Impersonate="yes" 
+            Return="check" 
             BinaryKey="FindReplace"
-            ExeCommand='"[CommonAppDataFolder]\Datadog\datadog.conf" "#hostname: mymachine.mydomain" "hostname: [HOSTNAME]"'
-            Execute="deferred"
-            Return="check"
-            Impersonate="no" />
+            ExeCommand='"[CommonAppDataFolder]Datadog\datadog.conf  "#hostname: mymachine.mydomain" "hostname: [HOSTNAME]"' />
 
         <CustomAction
             Id="LaunchApp"
