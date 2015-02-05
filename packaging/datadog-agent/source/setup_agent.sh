@@ -1,7 +1,8 @@
 #!/bin/sh
 
 # figure out where to pull from
-tag="5.1.1"
+version="5.1.1"
+tag="${DATADOG_TAG:-$(version)}"
 
 PIP_VERSION="6.0.6"
 
@@ -43,7 +44,7 @@ report() {
     encoded_log=$(echo "$log" | python -c 'import sys, urllib; print urllib.quote(sys.stdin.read().strip())')
     OS=$(echo "$unamestr" | python -c 'import sys, urllib; print urllib.quote(sys.stdin.read().strip())')
     key_to_report=$(echo "$key_to_report" | python -c 'import sys, urllib; print urllib.quote(sys.stdin.read().strip())')
-    agent_version=$(echo "$tag" | python -c 'import sys, urllib; print urllib.quote(sys.stdin.read().strip())')
+    agent_version=$(echo "$version" | python -c 'import sys, urllib; print urllib.quote(sys.stdin.read().strip())')
     notification_message="$RED
 A notification has been sent to Datadog with the content of $logfile.
 
@@ -135,7 +136,7 @@ unamestr=`uname`
 # Beginning of the installation #
 #################################
 
-printf "\n\nInstalling Datadog Agent $tag\n\n\n"
+printf "\n\nInstalling Datadog Agent $version\n\n\n"
 
 
 if [ -n "$DD_API_KEY" ]; then
