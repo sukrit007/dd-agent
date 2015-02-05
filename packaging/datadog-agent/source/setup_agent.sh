@@ -2,7 +2,7 @@
 
 # figure out where to pull from
 version="5.1.1"
-tag="${DATADOG_TAG:-$(version)}"
+tag="${DATADOG_TAG:-$version}"
 
 PIP_VERSION="6.0.6"
 
